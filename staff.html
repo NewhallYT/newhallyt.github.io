@@ -20,18 +20,32 @@
       color: #007bff;
       text-decoration: none;
     }
-    #logo {
+    .branding {
       position: absolute;
       top: 10px;
       left: 10px;
-      width: 80px;
-      height: auto;
+      display: flex;
+      align-items: center;
       z-index: 100;
+    }
+    .branding img {
+      width: 50px;
+      height: auto;
+      margin-right: 10px;
+    }
+    .branding span {
+      font-weight: bold;
+      font-size: 20px;
+      color: #333;
     }
   </style>
 </head>
 <body>
-  <img id="logo" src="logo.png" alt="Logo Pulse">
+  <div class="branding">
+    <img src="logo.png" alt="Logo Pulse">
+    <span>Pulse Network</span>
+  </div>
+
   <h1>newhall</h1>
   <a href="index.html">Retour à l'accueil</a>
 </body>
