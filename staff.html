@@ -77,19 +77,27 @@
 
     .staff-member {
       background-color: transparent;
-      padding: 25px; /* Augmenté pour agrandir la box */
-      width: 200px; /* Largeur de la box */
-      height: 350px; /* Augmenté pour agrandir verticalement */
+      padding: 25px;
+      width: 200px;
+      height: 350px;
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center; /* Centrer le contenu verticalement */
+      justify-content: center;
+      opacity: 0; /* L'élément est invisible au départ */
+      transform: translateY(30px); /* Légère translation vers le bas */
+      transition: opacity 0.5s ease, transform 0.5s ease; /* Animation fluide */
+    }
+
+    .staff-member.visible {
+      opacity: 1; /* Devenir visible */
+      transform: translateY(0); /* Remise à la position normale */
     }
 
     .staff-member img {
-      width: 120px; /* Largeur de l'image */
-      height: 240px; /* Hauteur de l'image, augmentée pour correspondre à l'agrandissement */
+      width: 120px;
+      height: 240px;
       object-fit: cover;
       border-radius: 8px;
       margin-bottom: 10px;
@@ -149,6 +157,37 @@
   </div>
 
   <a href="index.html" class="back-link">Back to Home</a>
+
+  <!-- Script pour l'animation d'apparition -->
+  <script>
+    // Fonction qui va être appelée pour chaque élément observé
+    const observerOptions = {
+      root: null, // Utilise la fenêtre pour détecter l'entrée dans la vue
+      rootMargin: "0px", // Pas de marge supplémentaire autour de la fenêtre
+      threshold: 0.2 // L'élément doit être à 20% dans la vue pour être déclenché
+    };
+
+    // Sélectionner tous les éléments .staff-member
+    const staffMembers = document.querySelectorAll('.staff-member');
+
+    // Créer une instance de l'IntersectionObserver
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        // Si l'élément est visible dans la fenêtre
+        if (entry.isIntersecting) {
+          // Ajouter la classe "visible" pour déclencher l'animation
+          entry.target.classList.add('visible');
+          // Arrêter d'observer l'élément une fois qu'il est visible
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Observer chaque élément .staff-member
+    staffMembers.forEach(member => {
+      observer.observe(member);
+    });
+  </script>
 
 </body>
 </html>
