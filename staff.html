@@ -33,6 +33,68 @@
       color: #333;
     }
 
+    /* Menu Burger */
+    .menu-container {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 101;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .menu-bar {
+      width: 30px;
+      height: 4px;
+      background-color: white;
+      border-radius: 5px;
+      transition: 0.3s ease;
+    }
+
+    .menu-container.open .menu-bar:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .menu-container.open .menu-bar:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-container.open .menu-bar:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    .nav-menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      background-color: #333;
+      width: 250px;
+      height: 100%;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 50px;
+      z-index: 100;
+    }
+
+    .nav-menu.open {
+      display: flex;
+    }
+
+    .nav-link {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      margin: 20px 0;
+      transition: 0.3s;
+    }
+
+    .nav-link:hover {
+      text-decoration: underline;
+    }
+
     header {
       text-align: center;
       padding: 100px 20px 50px 20px;
@@ -141,6 +203,19 @@
     <span>Pulse Network</span>
   </div>
 
+  <!-- Menu Burger -->
+  <div class="menu-container" onclick="toggleMenu()">
+    <div class="menu-bar"></div>
+    <div class="menu-bar"></div>
+    <div class="menu-bar"></div>
+  </div>
+
+  <!-- Menu -->
+  <div class="nav-menu" id="navMenu">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="staff.html" class="nav-link">Staff</a>
+  </div>
+
   <header>
     <h1>Meet Our Staff</h1>
   </header>
@@ -222,6 +297,12 @@
     staffMembers.forEach(member => {
       observer.observe(member);
     });
+
+    // Fonction pour afficher/masquer le menu
+    function toggleMenu() {
+      document.getElementById("navMenu").classList.toggle("open");
+      document.querySelector(".menu-container").classList.toggle("open");
+    }
   </script>
 
 </body>
