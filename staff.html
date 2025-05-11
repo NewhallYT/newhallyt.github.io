@@ -58,12 +58,23 @@
       gap: 10px;
     }
 
-    .staff-section h2::before {
+    /* Barre rouge foncée à côté de "Owner" */
+    .staff-section h2.owner::before {
       content: "";
       display: inline-block;
       width: 6px;
       height: 24px;
       background-color: #b30000;  /* Couleur rouge foncé */
+      border-radius: 3px;
+    }
+
+    /* Barre cyan foncée à côté de "Developer" */
+    .staff-section h2.developer::before {
+      content: "";
+      display: inline-block;
+      width: 6px;
+      height: 24px;
+      background-color: #009999;  /* Couleur cyan foncé */
       border-radius: 3px;
     }
 
@@ -133,7 +144,7 @@
   </header>
 
   <div class="staff-section">
-    <h2>Owner</h2>
+    <h2 class="owner">Owner</h2>
     <div class="staff-list">
       <div class="staff-member">
         <img src="refroidissement.png" alt="Refroidissement">
@@ -147,7 +158,7 @@
   </div>
 
   <div class="staff-section">
-    <h2>Developer</h2>
+    <h2 class="developer">Developer</h2>
     <div class="staff-list">
       <div class="staff-member">
         <img src="swcm.png" alt="swcm">
