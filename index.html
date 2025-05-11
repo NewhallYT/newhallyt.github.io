@@ -34,28 +34,6 @@
       color: #333;
     }
 
-    h1 {
-      color: #333;
-    }
-
-    .ip-box {
-      display: inline-block;
-      margin-top: 100px;
-      padding: 12px 25px;
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(10px);
-      border-radius: 10px;
-      font-size: 18px;
-      color: #333;
-      cursor: pointer;
-      border: 1px solid rgba(255,255,255,0.3);
-      transition: background 0.3s;
-    }
-
-    .ip-box:hover {
-      background: rgba(255, 255, 255, 0.3);
-    }
-
     /* Hamburger menu */
     .menu-toggle {
       position: absolute;
@@ -69,7 +47,7 @@
     .menu-toggle div {
       width: 30px;
       height: 4px;
-      background-color: #333;
+      background-color: #fff;  /* Changement des traits en blanc */
       margin: 6px 0;
       border-radius: 2px;
       transition: 0.4s;
@@ -99,6 +77,30 @@
 
     .menu a:hover {
       background-color: #f0f0f0;
+    }
+
+    /* Texte de bienvenue */
+    h1 {
+      color: #333;
+      margin-top: 100px; /* Espacement entre le logo et le texte */
+    }
+
+    .ip-box {
+      display: inline-block;
+      margin-top: 50px;
+      padding: 12px 25px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 10px;
+      font-size: 18px;
+      color: #333;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.3);
+      transition: background 0.3s;
+    }
+
+    .ip-box:hover {
+      background: rgba(255, 255, 255, 0.3);
     }
   </style>
 </head>
