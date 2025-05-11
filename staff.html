@@ -50,9 +50,21 @@
 
     .staff-section h2 {
       text-align: left;
-      color: #4CAF50;
-      border-bottom: 2px solid #4CAF50;
-      padding-bottom: 5px;
+      color: #333;
+      font-weight: bold;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .staff-section h2::before {
+      content: "";
+      display: inline-block;
+      width: 6px;
+      height: 24px;
+      background-color: #ff3333; /* Red accent bar */
+      border-radius: 3px;
     }
 
     .staff-list {
