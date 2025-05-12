@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Electron Network - Rules</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    .branding {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      display: flex;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .branding img {
+      width: 50px;
+      margin-right: 10px;
+    }
+
+    .branding span {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .menu-container {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 101;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .menu-bar {
+      width: 30px;
+      height: 4px;
+      background-color: #333;
+      border-radius: 5px;
+      transition: 0.3s ease;
+    }
+
+    .menu-container.open .menu-bar:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .menu-container.open .menu-bar:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-container.open .menu-bar:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    .nav-menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      background-color: #333;
+      width: 250px;
+      height: 100%;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 50px;
+      z-index: 100;
+    }
+
+    .nav-menu.open {
+      display: flex;
+    }
+
+    .nav-link {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      margin: 20px 0;
+    }
+
+    .nav-link:hover {
+      text-decoration: underline;
+    }
+
+    header {
+      padding: 80px 20px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 28px;
+      color: #222;
+    }
+
+    .rules-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .rules-section h2 {
+      font-size: 22px;
+      color: #b30000;
+      margin-top: 40px;
+    }
+
+    .rules-section p,
+    .rules-section li {
+      margin: 10px 0;
+    }
+
+    .rules-section ul {
+      padding-left: 20px;
+    }
+
+    .notice {
+      font-style: italic;
+      color: #555;
+      margin-top: 30px;
+    }
+
+    .footer-note {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="branding">
+    <img src="logo.png" alt="Logo">
+    <span>Electron Network</span>
+  </div>
+
+  <div class="menu-container" onclick="toggleMenu()">
+    <div class="menu-bar"></div>
+    <div class="menu-bar"></div>
+    <div class="menu-bar"></div>
+  </div>
+
+  <div class="nav-menu" id="navMenu">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="staff.html" class="nav-link">Staff</a>
+    <a href="rules.html" class="nav-link">Rules</a>
+  </div>
+
+  <header>
+    <h1>Electron Network │ Network & Discord Rules</h1>
+  </header>
+
+  <div class="rules-section">
+    <ul>
+      <li><em>Spamming could lead to a mute</em></li>
+      <li><em>No raiding / nuking</em></li>
+      <li><em>No 18+ / NSFW Content</em></li>
+      <li><em>Earrape is strictly prohibited in voice channels — You will be timed out for 14 days</em></li>
+      <li><em>No sexual harassment — You will be permanently BANNED if found breaking this rule!</em></li>
+      <li><em>No racist slurs</em></li>
+      <li><em>Swearing is allowed to an extent</em></li>
+      <li><em>No ticket spamming / trolling — You’ll be banned 14 days for ticket abuse</em></li>
+      <li><em>No advertisement unless you have access to &lt;@&amp;1258812233236877525&gt;</em></li>
+      <li><em>Anyone DM advertising will be banned from the server</em></li>
+      <li><em>You will not receive support in Direct Messages — make a ticket</em></li>
+      <li><em>Please refrain from pinging staff unless it’s important</em></li>
+      <li><em>Respect staff</em></li>
+      <li><em>Trashtalking/Rage baiting in-game or on Discord will get you muted</em></li>
+      <li><em>Using alts is allowed as long as you don’t abuse them (ban/mute evasion, etc.)</em></li>
+    </ul>
+
+    <h2>Electron Ingame Rules</h2>
+    <ul>
+      <li><em>Please follow the Discord rules as well as the ingame rules</em></li>
+      <li><em>No cheating — you’ll be banned permanently!</em></li>
+      <li><em>No impersonation</em></li>
+      <li><em>No selling ingame items for real money</em></li>
+      <li><em>No chat / command spamming</em></li>
+      <li><em>Any use of prohibited / blacklisted ingame modules (e.g., Xray, World Downloader) will result in a punishment</em></li>
+    </ul>
+
+    <p class="notice"><strong>Any excuse of not reading the rules when punished is not a valid excuse for being pardoned.</strong></p>
+
+    <p class="footer-note">Note: We have the authority to change, add, or remove any rules at any time. If you are banned for a rule you didn’t know about, we will not be held responsible.</p>
+    <p class="footer-note">If you break any of the rules listed above, you will be instantly banned and must appeal on our website.</p>
+
+    <p class="notice"><strong>Please make sure to read our rules before playing on our server! We want Electron Network to be a fun server to play on.</strong></p>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("navMenu").classList.toggle("open");
+      document.querySelector(".menu-container").classList.toggle("open");
+    }
+  </script>
+
+</body>
+  </html>
