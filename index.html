@@ -3,19 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pulse Network - Moderne</title>
+  <title>Pulse Network - Été Moderne</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary-bg-start: #1a237e; /* Indigo profond */
-      --primary-bg-end: #311b92;   /* Violet profond */
-      --text-color: #f5f5f5;
-      --text-color-secondary: #bdbdbd;
-      --accent-color: #673ab7; /* Violet plus clair pour accent */
+      /* Anciennes couleurs hivernales
+      --primary-bg-start: #1a237e;
+      --primary-bg-end: #311b92;
+      --accent-color: #673ab7;
       --accent-hover-color: #7e57c2;
-      --surface-color: rgba(255, 255, 255, 0.05);
-      --surface-hover-color: rgba(255, 255, 255, 0.1);
-      --border-color: rgba(255, 255, 255, 0.15);
+      */
+
+      /* Nouvelles couleurs estivales (Thème Coucher de Soleil / Chaleur) */
+      --primary-bg-start: #FF8C00; /* Orange foncé (soleil couchant) */
+      --primary-bg-end: #FF4500;   /* OrangeRed (chaleur intense) */
+      --text-color: #f5f5f5;       /* Reste clair pour le contraste */
+      --text-color-secondary: #e0e0e0; /* Un peu plus clair pour contraster sur le nouveau fond */
+      --accent-color: #FFA500;    /* Orange vif pour accent */
+      --accent-hover-color: #FFB732; /* Orange plus clair pour survol */
+
+      --surface-color: rgba(255, 255, 255, 0.08); /* Légèrement plus opaque pour meilleure lisibilité */
+      --surface-hover-color: rgba(255, 255, 255, 0.15);
+      --border-color: rgba(255, 255, 255, 0.2);
       --font-main: 'Roboto', Arial, sans-serif;
     }
 
@@ -28,8 +37,8 @@
       padding: 50px;
       min-height: 100vh;
       box-sizing: border-box;
-      overflow-x: hidden; /* Empêche le scroll horizontal si un flocon sort un peu */
-      position: relative; /* Pour le positionnement des flocons */
+      overflow-x: hidden;
+      position: relative;
     }
 
     .branding {
@@ -42,11 +51,10 @@
     }
 
     .branding img {
-      width: 50px; /* Ajustez si nécessaire */
+      width: 50px;
       height: auto;
       margin-right: 12px;
-      /* Si votre logo est sombre, envisagez un filtre pour le rendre clair ou utilisez une version claire du logo */
-      /* filter: brightness(0) invert(1); */
+      /* filter: brightness(0) invert(1); */ /* Peut-être toujours utile si logo sombre */
     }
 
     .branding span {
@@ -55,7 +63,6 @@
       color: var(--text-color);
     }
 
-    /* Hamburger menu */
     .menu-toggle {
       position: absolute;
       top: 25px;
@@ -63,13 +70,13 @@
       transform: translateX(-50%);
       cursor: pointer;
       z-index: 101;
-      padding: 10px; /* Zone de clic plus grande */
+      padding: 10px;
     }
 
     .menu-toggle div {
       width: 30px;
-      height: 3px; /* Un peu plus fin */
-      background-color: var(--text-color) !important; /* Trait blanc/clair */
+      height: 3px;
+      background-color: var(--text-color) !important;
       margin: 6px 0;
       border-radius: 2px;
       transition: 0.4s ease;
@@ -85,11 +92,10 @@
       transform: rotate(45deg) translate(-7px, -7px);
     }
 
-    /* Menu dropdown */
     .menu {
       display: none;
       position: absolute;
-      top: 70px; /* Un peu plus bas pour ne pas toucher le hamburger */
+      top: 70px;
       left: 50%;
       transform: translateX(-50%);
       background: var(--surface-color);
@@ -113,14 +119,13 @@
 
     .menu a:hover {
       background-color: var(--accent-color);
-      color: white;
+      color: white; /* Ou var(--primary-bg-end) pour un effet inversé */
     }
 
-    /* Texte de bienvenue */
     h1 {
       color: var(--text-color);
-      margin-top: 120px; /* Espacement entre le logo/menu et le texte */
-      font-size: 2.5em; /* Plus grand */
+      margin-top: 120px;
+      font-size: 2.5em;
       font-weight: 700;
     }
 
@@ -144,12 +149,11 @@
       transform: translateY(-3px);
     }
 
-    /* Bouton pour activer/désactiver la neige */
-    #snow-toggle-button {
+    #summer-effects-toggle-button { /* Changement d'ID */
       margin-top: 30px;
       padding: 10px 20px;
       background-color: var(--accent-color);
-      color: white;
+      color: white; /* Ou var(--primary-bg-end) pour un effet inversé */
       border: none;
       border-radius: 5px;
       cursor: pointer;
@@ -157,45 +161,45 @@
       transition: background-color 0.3s;
     }
 
-    #snow-toggle-button:hover {
+    #summer-effects-toggle-button:hover { /* Changement d'ID */
       background-color: var(--accent-hover-color);
     }
 
-    /* Conteneur et style des flocons */
-    #snowflakes-container {
-      position: fixed; /* Ou absolute si body n'est pas scrollable */
+    #summer-particles-container { /* Changement d'ID */
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none; /* Pour que les flocons ne bloquent pas les clics */
-      z-index: -1; /* Derrière le contenu mais visible */
+      pointer-events: none;
+      z-index: -1;
       overflow: hidden;
     }
 
-    .snowflake {
+    .summer-particle { /* Changement de classe */
       position: absolute;
-      color: white;
-      user-select: none; /* Empêche la sélection du texte des flocons */
-      animation-name: fall;
+      user-select: none;
+      animation-name: drift; /* Changement de nom d'animation */
       animation-timing-function: linear;
       animation-iteration-count: infinite;
-      opacity: 0; /* Commence invisible, l'animation le rendra visible */
+      opacity: 0;
+      /* Couleur des particules estivales - peut être variée en JS */
+      /* color: gold; */
     }
 
-    @keyframes fall {
+    @keyframes drift { /* Anciennement 'fall' */
       0% {
-        transform: translateY(-10vh) rotate(0deg);
+        transform: translateY(-10vh) rotate(0deg); /* Partent du haut */
         opacity: 0;
       }
       10% {
-        opacity: 1; /* Devient visible */
+        opacity: 0.7; /* Devient visible, un peu transparent pour effet de chaleur/lumière */
       }
       90% {
-        opacity: 1;
+        opacity: 0.7;
       }
       100% {
-        transform: translateY(110vh) rotate(360deg); /* Tombe en bas de l'écran + un peu plus pour disparaître */
+        transform: translateY(110vh) rotate(360deg); /* Disparaissent en bas */
         opacity: 0;
       }
     }
@@ -223,9 +227,9 @@
 
   <div class="ip-box" onclick="copyIP()">eu.pulse.club</div>
 
-  <button id="snow-toggle-button">Toggle Snow</button>
+  <button id="summer-effects-toggle-button">Toggle Summer Glow</button> {/* Changement d'ID et texte */}
 
-  <div id="snowflakes-container"></div>
+  <div id="summer-particles-container"></div> {/* Changement d'ID */}
 
   <script>
     function copyIP() {
@@ -246,87 +250,65 @@
     document.addEventListener('click', function(event) {
       const menu = document.getElementById('menu');
       const toggle = document.querySelector('.menu-toggle');
-      if (!menu.contains(event.target) && !toggle.contains(event.target) && !toggle.contains(event.target.parentElement)) { // Check parent for div clicks
+      if (!menu.contains(event.target) && !toggle.contains(event.target) && !toggle.contains(event.target.parentElement)) {
         menu.style.display = 'none';
         toggle.classList.remove('active');
       }
     });
 
-    // --- Logique pour les flocons de neige ---
-    const snowflakesContainer = document.getElementById('snowflakes-container');
-    const snowToggleButton = document.getElementById('snow-toggle-button');
-    let isSnowing = false;
-    let snowInterval;
-    const NUM_SNOWFLAKES = 100; // Nombre de flocons à afficher en même temps
+    // --- Logique pour les effets estivaux ---
+    const particlesContainer = document.getElementById('summer-particles-container'); // Changement d'ID
+    const particlesToggleButton = document.getElementById('summer-effects-toggle-button'); // Changement d'ID
+    let areParticlesActive = false; // Changement de nom de variable
+    const NUM_PARTICLES = 80; // Un peu moins, car les symboles solaires peuvent être plus "lourds" visuellement
 
-    function createSnowflake() {
-      const snowflake = document.createElement('div');
-      snowflake.innerHTML = '❄'; // Vous pouvez utiliser d'autres caractères comme •, *, etc.
-      snowflake.classList.add('snowflake');
+    const summerSymbols = ['☀️', '✨', '·']; // Soleil, étincelle, petit point lumineux
+    const summerColors = ['#FFD700', '#FFA500', '#FFFAF0', '#FFFACD']; // Or, Orange, Blanc antique, Jaune citron clair
 
-      snowflake.style.left = Math.random() * 100 + 'vw';
-      snowflake.style.fontSize = (Math.random() * 1.5 + 0.5) + 'em'; // Taille entre 0.5em et 2em
-      // snowflake.style.opacity = Math.random() * 0.7 + 0.3; // Opacité entre 0.3 et 1.0 - géré par l'animation maintenant
-      
-      const animationDuration = Math.random() * 5 + 5; // Durée entre 5s et 10s
-      snowflake.style.animationDuration = animationDuration + 's';
-      snowflake.style.animationDelay = Math.random() * animationDuration + 's'; // Délai pour un départ échelonné
+    function createSummerParticle() {
+      const particle = document.createElement('div');
+      particle.innerHTML = summerSymbols[Math.floor(Math.random() * summerSymbols.length)];
+      particle.classList.add('summer-particle'); // Changement de classe
 
-      // Pour un léger mouvement horizontal (optionnel)
-      // const sway = (Math.random() - 0.5) * 100; // Mouvement horizontal de -50px à +50px
-      // snowflake.animate([
-      //   { transform: `translateY(-10vh) translateX(0px) rotate(0deg)`, opacity: 0 },
-      //   { opacity: 1 },
-      //   { opacity: 1 },
-      //   { transform: `translateY(110vh) translateX(${sway}px) rotate(360deg)`, opacity: 0 }
-      // ], {
-      //   duration: animationDuration * 1000,
-      //   delay: Math.random() * animationDuration * 1000,
-      //   iterations: Infinity,
-      //   easing: 'linear'
-      // });
-      // Note: Si vous utilisez l'API Web Animations ci-dessus, ajustez les @keyframes CSS en conséquence ou supprimez-les.
+      particle.style.left = Math.random() * 100 + 'vw';
+      particle.style.fontSize = (Math.random() * 1.0 + 0.4) + 'em'; // Taille entre 0.4em et 1.4em
+      particle.style.color = summerColors[Math.floor(Math.random() * summerColors.length)];
 
-      snowflakesContainer.appendChild(snowflake);
+      const animationDuration = Math.random() * 7 + 6; // Durée entre 6s et 13s (un peu plus lent, effet "chaleur flottante")
+      particle.style.animationDuration = animationDuration + 's';
+      particle.style.animationDelay = Math.random() * animationDuration + 's';
 
-      // Nettoyer le flocon du DOM après son animation pour ne pas surcharger
-      // L'animation CSS gère déjà l'opacité à 0, mais le DOM element reste.
-      // Pour une performance optimale sur de longues durées, il faudrait les supprimer.
-      // Cependant, avec `animation-iteration-count: infinite`, ils se réutilisent.
-      // Si on ne mettait pas `infinite`, il faudrait un `setTimeout` pour les supprimer.
-      // setTimeout(() => {
-      //    snowflake.remove();
-      // }, (animationDuration + parseFloat(snowflake.style.animationDelay || 0)) * 1000);
+      particlesContainer.appendChild(particle);
     }
 
-    function startSnowfall() {
-        if (snowflakesContainer.children.length < NUM_SNOWFLAKES) { // Évite de recréer si déjà plein
-            for (let i = 0; i < NUM_SNOWFLAKES; i++) {
-                createSnowflake();
+    function startSummerEffects() { // Changement de nom de fonction
+        if (particlesContainer.children.length < NUM_PARTICLES) {
+            for (let i = 0; i < NUM_PARTICLES; i++) {
+                createSummerParticle();
             }
         }
-        snowflakesContainer.style.display = 'block'; // Assure la visibilité
-        isSnowing = true;
-        snowToggleButton.textContent = "Stop Snow";
+        particlesContainer.style.display = 'block';
+        areParticlesActive = true;
+        particlesToggleButton.textContent = "Stop Summer Glow"; // Changement de texte
     }
 
-    function stopSnowfall() {
-      snowflakesContainer.innerHTML = ''; // Supprime tous les flocons
-      snowflakesContainer.style.display = 'none'; // Cache le conteneur
-      isSnowing = false;
-      snowToggleButton.textContent = "Start Snow";
+    function stopSummerEffects() { // Changement de nom de fonction
+      particlesContainer.innerHTML = '';
+      particlesContainer.style.display = 'none';
+      areParticlesActive = false;
+      particlesToggleButton.textContent = "Start Summer Glow"; // Changement de texte
     }
 
-    snowToggleButton.addEventListener('click', () => {
-      if (isSnowing) {
-        stopSnowfall();
+    particlesToggleButton.addEventListener('click', () => {
+      if (areParticlesActive) {
+        stopSummerEffects();
       } else {
-        startSnowfall();
+        startSummerEffects();
       }
     });
 
-    // Optionnel: Démarrer la neige par défaut
-    // startSnowfall();
+    // Optionnel: Démarrer les effets par défaut
+    // startSummerEffects();
 
   </script>
 
