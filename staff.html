@@ -1,21 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr"> {/* Changé de 'en' à 'fr' pour correspondre à l'index */}
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pulse Network - Staff</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      /* Palette estivale (identique à index.html) */
+      --primary-bg-start: #FF8C00;
+      --primary-bg-end: #FF4500;
+      --text-color: #f5f5f5;
+      --text-color-secondary: #e0e0e0;
+      --accent-color: #FFA500;
+      --accent-hover-color: #FFB732;
+      --surface-color: rgba(255, 255, 255, 0.08);
+      --surface-hover-color: rgba(255, 255, 255, 0.15);
+      --border-color: rgba(255, 255, 255, 0.2);
+      --font-main: 'Roboto', Arial, sans-serif;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
+      font-family: var(--font-main);
+      background: linear-gradient(135deg, var(--primary-bg-start), var(--primary-bg-end));
+      color: var(--text-color);
       margin: 0;
-      padding: 0;
+      padding: 0 20px 50px 20px; /* Ajout padding bas pour le lien retour */
+      min-height: 100vh;
+      box-sizing: border-box;
+      overflow-x: hidden;
+      position: relative;
     }
 
     .branding {
       position: absolute;
-      top: 10px;
-      left: 10px;
+      top: 20px;
+      left: 20px;
       display: flex;
       align-items: center;
       z-index: 100;
@@ -24,175 +44,199 @@
     .branding img {
       width: 50px;
       height: auto;
-      margin-right: 10px;
+      margin-right: 12px;
+      /* filter: brightness(0) invert(1); */ /* Décommentez si votre logo est sombre */
     }
 
     .branding span {
       font-weight: bold;
-      font-size: 20px;
-      color: #333;
+      font-size: 22px; /* Harmonisé avec index.html */
+      color: var(--text-color);
     }
 
-    /* Menu Burger */
-    .menu-container {
+    /* Menu Hamburger (identique à index.html) */
+    .menu-toggle {
       position: absolute;
-      top: 20px;
-      right: 20px;
-      z-index: 101;
+      top: 25px;
+      left: 50%;
+      transform: translateX(-50%);
       cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
+      z-index: 101;
+      padding: 10px;
     }
 
-    .menu-bar {
+    .menu-toggle div {
       width: 30px;
-      height: 4px;
-      background-color: white;
-      border-radius: 5px;
-      transition: 0.3s ease;
+      height: 3px;
+      background-color: var(--text-color) !important;
+      margin: 6px 0;
+      border-radius: 2px;
+      transition: 0.4s ease;
     }
 
-    .menu-container.open .menu-bar:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
+    .menu-toggle.active div:nth-child(1) {
+      transform: rotate(-45deg) translate(-7px, 7px);
     }
-
-    .menu-container.open .menu-bar:nth-child(2) {
+    .menu-toggle.active div:nth-child(2) {
       opacity: 0;
     }
-
-    .menu-container.open .menu-bar:nth-child(3) {
-      transform: rotate(-45deg) translate(5px, -5px);
+    .menu-toggle.active div:nth-child(3) {
+      transform: rotate(45deg) translate(-7px, -7px);
     }
 
-    .nav-menu {
-      position: fixed;
-      top: 0;
-      right: 0;
-      background-color: #333;
-      width: 250px;
-      height: 100%;
+    /* Menu dropdown (identique à index.html) */
+    .menu {
       display: none;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 50px;
+      position: absolute;
+      top: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--surface-color);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      padding: 10px 0;
       z-index: 100;
+      width: 200px;
     }
 
-    .nav-menu.open {
-      display: flex;
-    }
-
-    .nav-link {
-      color: white;
+    .menu a {
+      display: block;
+      padding: 12px 30px;
+      color: var(--text-color);
       text-decoration: none;
-      font-size: 18px;
-      margin: 20px 0;
-      transition: 0.3s;
+      font-weight: bold;
+      transition: background-color 0.3s, color 0.3s;
     }
 
-    .nav-link:hover {
-      text-decoration: underline;
+    .menu a:hover {
+      background-color: var(--accent-color);
+      color: white;
     }
 
     header {
       text-align: center;
-      padding: 100px 20px 50px 20px;
+      padding: 100px 20px 40px 20px; /* Ajustement padding */
     }
 
-    h1 {
-      color: #333;
+    header h1 { /* Renommé de h1 simple pour spécificité */
+      color: var(--text-color);
+      font-size: 2.5em; /* Harmonisé */
+      font-weight: 700; /* Harmonisé */
     }
 
     .staff-section {
-      max-width: 800px;
-      margin: 0 auto 50px auto;
+      max-width: 900px; /* Un peu plus large pour potentiellement plus de membres par ligne */
+      margin: 0 auto 40px auto;
       padding: 0 20px;
     }
 
     .staff-section h2 {
       text-align: left;
-      color: #333;
+      color: var(--text-color-secondary); /* Couleur secondaire pour les titres de section */
       font-weight: bold;
-      font-size: 22px;
+      font-size: 1.8em; /* Taille ajustée */
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px; /* Espace augmenté */
+      margin-bottom: 25px; /* Marge sous le titre */
+      border-bottom: 1px solid var(--border-color); /* Ligne de séparation subtile */
+      padding-bottom: 10px;
     }
 
-    /* Barre rouge foncée à côté de "Owner", "MEDIA-OWNER" et "Manager" */
-    .staff-section h2.owner::before,
-    .staff-section h2.media-owner::before,
-    .staff-section h2.manager::before {
+    /* Barre de couleur à côté des titres de rôle */
+    .staff-section h2::before {
       content: "";
       display: inline-block;
-      width: 6px;
-      height: 24px;
-      background-color: #b30000;  /* Couleur rouge foncé */
-      border-radius: 3px;
+      width: 8px; /* Un peu plus épais */
+      height: 28px; /* Un peu plus haut */
+      background-color: var(--accent-color); /* Utilisation de la couleur d'accent du thème */
+      border-radius: 4px;
     }
-
-    /* Barre cyan foncée à côté de "Developer" */
-    .staff-section h2.developer::before {
-      content: "";
-      display: inline-block;
-      width: 6px;
-      height: 24px;
-      background-color: #009999;  /* Couleur cyan foncé */
-      border-radius: 3px;
-    }
+    /* Si vous voulez des couleurs différentes par rôle, vous pouvez les redéfinir ici:
+    .staff-section h2.developer::before { background-color: var(--autre-accent-couleur); }
+    */
 
     .staff-list {
       display: flex;
       flex-wrap: wrap;
-      justify-content: flex-start;
-      gap: 20px;
+      justify-content: center; /* Centrer les cartes si elles ne remplissent pas la ligne */
+      gap: 25px; /* Espace entre les cartes */
       margin-top: 20px;
     }
 
     .staff-member {
-      background-color: transparent;
-      padding: 25px;
-      width: 200px;
-      height: 350px;
+      background: var(--surface-color);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px; /* Padding intérieur */
+      width: 220px; /* Largeur fixe */
+      /* height: auto;  La hauteur sera automatique en fonction du contenu */
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      opacity: 0; /* L'élément est invisible au départ */
-      transform: translateY(30px); /* Légère translation vers le bas */
-      transition: opacity 0.5s ease, transform 0.5s ease; /* Animation fluide */
+      justify-content: flex-start; /* Aligner en haut pour que le texte soit sous l'image */
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out, background-color 0.3s; /* Animation plus douce et transition pour hover */
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .staff-member:hover {
+        background: var(--surface-hover-color);
+        transform: translateY(-5px); /* Petit effet de soulèvement au survol */
     }
 
     .staff-member.visible {
-      opacity: 1; /* Devenir visible */
-      transform: translateY(0); /* Remise à la position normale */
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .staff-member img {
-      width: 120px;
-      height: 240px;
+      width: 120px; /* Gardé */
+      height: 180px; /* Ajusté pour un ratio plus courant, vous pouvez remettre 240px si vos images sont très hautes */
       object-fit: cover;
+      object-position: center top; /* S'assurer que le haut de l'image est visible */
       border-radius: 8px;
-      margin-bottom: 10px;
+      margin-bottom: 15px; /* Espace sous l'image */
     }
 
     .staff-member p {
       margin: 5px 0;
       font-weight: bold;
+      color: var(--text-color); /* Assurer la couleur du texte */
+      font-size: 1.1em;
+    }
+     .staff-member span.role-tag { /* Optionnel: petit tag pour le rôle si besoin */
+        font-size: 0.8em;
+        color: var(--accent-color);
+        background-color: rgba(255, 165, 0, 0.1);
+        padding: 3px 8px;
+        border-radius: 12px;
+        margin-top: 8px;
+        display: inline-block;
     }
 
+
     .back-link {
-      display: block;
+      display: inline-block; /* Pour centrer avec text-align sur le parent si besoin */
       text-align: center;
-      margin-bottom: 50px;
-      color: #007bff;
+      margin: 40px auto; /* Centrer le lien horizontalement et ajouter marge */
+      padding: 10px 25px;
+      color: var(--text-color);
+      background-color: var(--accent-color);
       text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background-color 0.3s, transform 0.2s;
     }
 
     .back-link:hover {
-      text-decoration: underline;
+      background-color: var(--accent-hover-color);
+      text-decoration: none; /* Éviter le soulignement par défaut sur hover si déjà stylé */
+      transform: translateY(-2px);
     }
   </style>
 </head>
@@ -203,17 +247,15 @@
     <span>Pulse Network</span>
   </div>
 
-  <!-- Menu Burger -->
-  <div class="menu-container" onclick="toggleMenu()">
-    <div class="menu-bar"></div>
-    <div class="menu-bar"></div>
-    <div class="menu-bar"></div>
+  <div class="menu-toggle" onclick="toggleMenuHandler(this)"> {/* Renommé pour éviter conflit si l'autre script est chargé */}
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
 
-  <!-- Menu -->
-  <div class="nav-menu" id="navMenu">
-    <a href="index.html" class="nav-link">Home</a>
-    <a href="staff.html" class="nav-link">Staff</a>
+  <div class="menu" id="mainMenu"> {/* ID changé pour éviter conflit */}
+    <a href="index.html">Home</a>
+    <a href="staff.html">Staff</a>
   </div>
 
   <header>
@@ -234,7 +276,6 @@
     </div>
   </div>
 
-  <!-- Nouvelle section MEDIA-OWNER -->
   <div class="staff-section">
     <h2 class="media-owner">MEDIA-OWNER</h2>
     <div class="staff-list">
@@ -245,7 +286,6 @@
     </div>
   </div>
 
-  <!-- Nouvelle section Manager -->
   <div class="staff-section">
     <h2 class="manager">Manager</h2>
     <div class="staff-list">
@@ -265,44 +305,52 @@
       </div>
     </div>
   </div>
+  
+  <div style="text-align: center;"> {/* Conteneur pour centrer le lien */}
+    <a href="index.html" class="back-link">Back to Home</a>
+  </div>
 
-  <a href="index.html" class="back-link">Back to Home</a>
-
-  <!-- Script pour l'animation d'apparition -->
   <script>
-    // Fonction qui va être appelée pour chaque élément observé
+    // Script pour l'animation d'apparition des membres du staff (conservé et fonctionnel)
     const observerOptions = {
-      root: null, // Utilise la fenêtre pour détecter l'entrée dans la vue
-      rootMargin: "0px", // Pas de marge supplémentaire autour de la fenêtre
-      threshold: 0.2 // L'élément doit être à 20% dans la vue pour être déclenché
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.15 // Un peu plus tôt pour un effet plus fluide
     };
 
-    // Sélectionner tous les éléments .staff-member
     const staffMembers = document.querySelectorAll('.staff-member');
 
-    // Créer une instance de l'IntersectionObserver
-    const observer = new IntersectionObserver((entries, observer) => {
+    const observer = new IntersectionObserver((entries, observerInstance) => { // Renommé observer pour éviter conflit potentiel
       entries.forEach(entry => {
-        // Si l'élément est visible dans la fenêtre
         if (entry.isIntersecting) {
-          // Ajouter la classe "visible" pour déclencher l'animation
           entry.target.classList.add('visible');
-          // Arrêter d'observer l'élément une fois qu'il est visible
-          observer.unobserve(entry.target);
+          observerInstance.unobserve(entry.target);
         }
       });
     }, observerOptions);
 
-    // Observer chaque élément .staff-member
     staffMembers.forEach(member => {
       observer.observe(member);
     });
 
-    // Fonction pour afficher/masquer le menu
-    function toggleMenu() {
-      document.getElementById("navMenu").classList.toggle("open");
-      document.querySelector(".menu-container").classList.toggle("open");
+    // Script pour le menu (identique à index.html, avec noms de fonction/ID légèrement modifiés pour clarté)
+    const menuToggleBtn = document.querySelector('.menu-toggle'); // Sélection via classe
+    function toggleMenuHandler(element) { // Renommée pour éviter conflit si les scripts étaient combinés
+      const menuDropdown = document.getElementById('mainMenu'); // ID changé
+      menuDropdown.style.display = menuDropdown.style.display === 'block' ? 'none' : 'block';
+      element.classList.toggle('active');
     }
+
+    document.addEventListener('click', function(event) {
+      const menuDropdown = document.getElementById('mainMenu'); // ID changé
+      // S'assurer que menuToggleBtn est bien le bouton du menu avant d'utiliser ses propriétés
+      if (menuToggleBtn && !menuDropdown.contains(event.target) && !menuToggleBtn.contains(event.target) && !menuToggleBtn.contains(event.target.parentElement) ) {
+        menuDropdown.style.display = 'none';
+        if (menuToggleBtn.classList) { // Vérifier que classList existe
+             menuToggleBtn.classList.remove('active');
+        }
+      }
+    });
   </script>
 
 </body>
