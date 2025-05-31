@@ -1,126 +1,219 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pulse Network</title>
+  <title>Pulse Network - Moderne</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --primary-bg-start: #1a237e; /* Indigo profond */
+      --primary-bg-end: #311b92;   /* Violet profond */
+      --text-color: #f5f5f5;
+      --text-color-secondary: #bdbdbd;
+      --accent-color: #673ab7; /* Violet plus clair pour accent */
+      --accent-hover-color: #7e57c2;
+      --surface-color: rgba(255, 255, 255, 0.05);
+      --surface-hover-color: rgba(255, 255, 255, 0.1);
+      --border-color: rgba(255, 255, 255, 0.15);
+      --font-main: 'Roboto', Arial, sans-serif;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
+      font-family: var(--font-main);
+      background: linear-gradient(135deg, var(--primary-bg-start), var(--primary-bg-end));
+      color: var(--text-color);
       text-align: center;
       margin: 0;
       padding: 50px;
-      color: #333;
+      min-height: 100vh;
+      box-sizing: border-box;
+      overflow-x: hidden; /* Empêche le scroll horizontal si un flocon sort un peu */
+      position: relative; /* Pour le positionnement des flocons */
     }
 
     .branding {
       position: absolute;
-      top: 10px;
-      left: 10px;
+      top: 20px;
+      left: 20px;
       display: flex;
       align-items: center;
       z-index: 100;
     }
 
     .branding img {
-      width: 50px;
+      width: 50px; /* Ajustez si nécessaire */
       height: auto;
-      margin-right: 10px;
+      margin-right: 12px;
+      /* Si votre logo est sombre, envisagez un filtre pour le rendre clair ou utilisez une version claire du logo */
+      /* filter: brightness(0) invert(1); */
     }
 
     .branding span {
       font-weight: bold;
-      font-size: 20px;
-      color: #333;
+      font-size: 22px;
+      color: var(--text-color);
     }
 
     /* Hamburger menu */
     .menu-toggle {
       position: absolute;
-      top: 20px;
+      top: 25px;
       left: 50%;
       transform: translateX(-50%);
       cursor: pointer;
       z-index: 101;
+      padding: 10px; /* Zone de clic plus grande */
     }
 
     .menu-toggle div {
       width: 30px;
-      height: 4px;
-      background-color: #000000 !important;  /* Trait noir */
+      height: 3px; /* Un peu plus fin */
+      background-color: var(--text-color) !important; /* Trait blanc/clair */
       margin: 6px 0;
       border-radius: 2px;
-      transition: 0.4s;
+      transition: 0.4s ease;
+    }
+
+    .menu-toggle.active div:nth-child(1) {
+      transform: rotate(-45deg) translate(-7px, 7px);
+    }
+    .menu-toggle.active div:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-toggle.active div:nth-child(3) {
+      transform: rotate(45deg) translate(-7px, -7px);
     }
 
     /* Menu dropdown */
     .menu {
       display: none;
       position: absolute;
-      top: 60px;
+      top: 70px; /* Un peu plus bas pour ne pas toucher le hamburger */
       left: 50%;
       transform: translateX(-50%);
-      background: white;
-      border: 1px solid #ccc;
+      background: var(--surface-color);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-color);
       border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
       padding: 10px 0;
       z-index: 100;
+      width: 200px;
     }
 
     .menu a {
       display: block;
-      padding: 10px 30px;
-      color: #333;
+      padding: 12px 30px;
+      color: var(--text-color);
       text-decoration: none;
       font-weight: bold;
+      transition: background-color 0.3s, color 0.3s;
     }
 
     .menu a:hover {
-      background-color: #f0f0f0;
+      background-color: var(--accent-color);
+      color: white;
     }
 
     /* Texte de bienvenue */
     h1 {
-      color: #333;
-      margin-top: 100px; /* Espacement entre le logo et le texte */
+      color: var(--text-color);
+      margin-top: 120px; /* Espacement entre le logo/menu et le texte */
+      font-size: 2.5em; /* Plus grand */
+      font-weight: 700;
     }
 
     .ip-box {
       display: inline-block;
-      margin-top: 50px;
-      padding: 12px 25px;
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(10px);
+      margin-top: 40px;
+      padding: 15px 30px;
+      background: var(--surface-color);
+      backdrop-filter: blur(8px);
       border-radius: 10px;
-      font-size: 18px;
-      color: #333;
+      font-size: 20px;
+      color: var(--text-color);
       cursor: pointer;
-      border: 1px solid rgba(255,255,255,0.3);
-      transition: background 0.3s;
+      border: 1px solid var(--border-color);
+      transition: background-color 0.3s, transform 0.2s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
     .ip-box:hover {
-      background: rgba(255, 255, 255, 0.3);
+      background: var(--surface-hover-color);
+      transform: translateY(-3px);
     }
+
+    /* Bouton pour activer/désactiver la neige */
+    #snow-toggle-button {
+      margin-top: 30px;
+      padding: 10px 20px;
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    #snow-toggle-button:hover {
+      background-color: var(--accent-hover-color);
+    }
+
+    /* Conteneur et style des flocons */
+    #snowflakes-container {
+      position: fixed; /* Ou absolute si body n'est pas scrollable */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none; /* Pour que les flocons ne bloquent pas les clics */
+      z-index: -1; /* Derrière le contenu mais visible */
+      overflow: hidden;
+    }
+
+    .snowflake {
+      position: absolute;
+      color: white;
+      user-select: none; /* Empêche la sélection du texte des flocons */
+      animation-name: fall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      opacity: 0; /* Commence invisible, l'animation le rendra visible */
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1; /* Devient visible */
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg); /* Tombe en bas de l'écran + un peu plus pour disparaître */
+        opacity: 0;
+      }
+    }
+
   </style>
 </head>
 <body>
 
   <div class="branding">
-    <img src="logo.png" alt="Pulse Logo">
-    <span>Pulse Network</span>
+    <img src="logo.png" alt="Pulse Logo"> <span>Pulse Network</span>
   </div>
 
-  <!-- Hamburger menu toggle -->
-  <div class="menu-toggle" onclick="toggleMenu()">
+  <div class="menu-toggle" onclick="toggleMenu(this)">
     <div></div>
     <div></div>
     <div></div>
   </div>
 
-  <!-- Dropdown menu -->
   <div class="menu" id="menu">
     <a href="index.html">Home</a>
     <a href="staff.html">Staff</a>
@@ -129,6 +222,10 @@
   <h1>Welcome to the official site of Pulse Network</h1>
 
   <div class="ip-box" onclick="copyIP()">eu.pulse.club</div>
+
+  <button id="snow-toggle-button">Toggle Snow</button>
+
+  <div id="snowflakes-container"></div>
 
   <script>
     function copyIP() {
@@ -139,19 +236,98 @@
       });
     }
 
-    function toggleMenu() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    function toggleMenu(element) {
       const menu = document.getElementById('menu');
       menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+      element.classList.toggle('active');
     }
 
-    // Optional: Hide menu when clicking outside
     document.addEventListener('click', function(event) {
       const menu = document.getElementById('menu');
       const toggle = document.querySelector('.menu-toggle');
-      if (!menu.contains(event.target) && !toggle.contains(event.target)) {
+      if (!menu.contains(event.target) && !toggle.contains(event.target) && !toggle.contains(event.target.parentElement)) { // Check parent for div clicks
         menu.style.display = 'none';
+        toggle.classList.remove('active');
       }
     });
+
+    // --- Logique pour les flocons de neige ---
+    const snowflakesContainer = document.getElementById('snowflakes-container');
+    const snowToggleButton = document.getElementById('snow-toggle-button');
+    let isSnowing = false;
+    let snowInterval;
+    const NUM_SNOWFLAKES = 100; // Nombre de flocons à afficher en même temps
+
+    function createSnowflake() {
+      const snowflake = document.createElement('div');
+      snowflake.innerHTML = '❄'; // Vous pouvez utiliser d'autres caractères comme •, *, etc.
+      snowflake.classList.add('snowflake');
+
+      snowflake.style.left = Math.random() * 100 + 'vw';
+      snowflake.style.fontSize = (Math.random() * 1.5 + 0.5) + 'em'; // Taille entre 0.5em et 2em
+      // snowflake.style.opacity = Math.random() * 0.7 + 0.3; // Opacité entre 0.3 et 1.0 - géré par l'animation maintenant
+      
+      const animationDuration = Math.random() * 5 + 5; // Durée entre 5s et 10s
+      snowflake.style.animationDuration = animationDuration + 's';
+      snowflake.style.animationDelay = Math.random() * animationDuration + 's'; // Délai pour un départ échelonné
+
+      // Pour un léger mouvement horizontal (optionnel)
+      // const sway = (Math.random() - 0.5) * 100; // Mouvement horizontal de -50px à +50px
+      // snowflake.animate([
+      //   { transform: `translateY(-10vh) translateX(0px) rotate(0deg)`, opacity: 0 },
+      //   { opacity: 1 },
+      //   { opacity: 1 },
+      //   { transform: `translateY(110vh) translateX(${sway}px) rotate(360deg)`, opacity: 0 }
+      // ], {
+      //   duration: animationDuration * 1000,
+      //   delay: Math.random() * animationDuration * 1000,
+      //   iterations: Infinity,
+      //   easing: 'linear'
+      // });
+      // Note: Si vous utilisez l'API Web Animations ci-dessus, ajustez les @keyframes CSS en conséquence ou supprimez-les.
+
+      snowflakesContainer.appendChild(snowflake);
+
+      // Nettoyer le flocon du DOM après son animation pour ne pas surcharger
+      // L'animation CSS gère déjà l'opacité à 0, mais le DOM element reste.
+      // Pour une performance optimale sur de longues durées, il faudrait les supprimer.
+      // Cependant, avec `animation-iteration-count: infinite`, ils se réutilisent.
+      // Si on ne mettait pas `infinite`, il faudrait un `setTimeout` pour les supprimer.
+      // setTimeout(() => {
+      //    snowflake.remove();
+      // }, (animationDuration + parseFloat(snowflake.style.animationDelay || 0)) * 1000);
+    }
+
+    function startSnowfall() {
+        if (snowflakesContainer.children.length < NUM_SNOWFLAKES) { // Évite de recréer si déjà plein
+            for (let i = 0; i < NUM_SNOWFLAKES; i++) {
+                createSnowflake();
+            }
+        }
+        snowflakesContainer.style.display = 'block'; // Assure la visibilité
+        isSnowing = true;
+        snowToggleButton.textContent = "Stop Snow";
+    }
+
+    function stopSnowfall() {
+      snowflakesContainer.innerHTML = ''; // Supprime tous les flocons
+      snowflakesContainer.style.display = 'none'; // Cache le conteneur
+      isSnowing = false;
+      snowToggleButton.textContent = "Start Snow";
+    }
+
+    snowToggleButton.addEventListener('click', () => {
+      if (isSnowing) {
+        stopSnowfall();
+      } else {
+        startSnowfall();
+      }
+    });
+
+    // Optionnel: Démarrer la neige par défaut
+    // startSnowfall();
+
   </script>
 
 </body>
