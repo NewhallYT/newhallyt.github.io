@@ -1,329 +1,563 @@
 <!DOCTYPE html>
-<html lang="fr"> {/* Changé de 'en' à 'fr' pour correspondre à l'index */}
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pulse Network - Staff</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      /* Palette estivale (identique à index.html) */
-      --primary-bg-start: #FF8C00;
-      --primary-bg-end: #FF4500;
-      --text-color: #f5f5f5;
-      --text-color-secondary: #e0e0e0;
-      --accent-color: #FFA500;
-      --accent-hover-color: #FFB732;
-      --surface-color: rgba(255, 255, 255, 0.08);
-      --surface-hover-color: rgba(255, 255, 255, 0.15);
-      --border-color: rgba(255, 255, 255, 0.2);
-      --font-main: 'Roboto', Arial, sans-serif;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-      font-family: var(--font-main);
-      background: linear-gradient(135deg, var(--primary-bg-start), var(--primary-bg-end));
-      color: var(--text-color);
-      margin: 0;
-      padding: 0 20px 50px 20px; /* Ajout padding bas pour le lien retour */
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 25%, #fecfef 50%, #ff9a9e 75%, #fad0c4 100%);
       min-height: 100vh;
-      box-sizing: border-box;
-      overflow-x: hidden;
+      color: #2d3748;
       position: relative;
+      overflow-x: hidden;
+      padding-bottom: 60px;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 20%, rgba(255, 206, 84, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 154, 158, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 60%, rgba(255, 183, 197, 0.2) 0%, transparent 50%);
+      animation: float 6s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
     }
 
     .branding {
-      position: absolute;
+      position: fixed;
       top: 20px;
       left: 20px;
       display: flex;
       align-items: center;
-      z-index: 100;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      padding: 10px 20px;
+      border-radius: 50px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .branding:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
     }
 
     .branding img {
-      width: 50px;
-      height: auto;
+      width: 40px;
+      height: 40px;
       margin-right: 12px;
-      /* filter: brightness(0) invert(1); */ /* Décommentez si votre logo est sombre */
+      border-radius: 50%;
+      background: linear-gradient(45deg, #ff6b6b, #feca57);
     }
 
     .branding span {
-      font-weight: bold;
-      font-size: 22px; /* Harmonisé avec index.html */
-      color: var(--text-color);
+      font-size: 18px;
+      font-weight: 700;
+      background: linear-gradient(45deg, #ff6b6b, #feca57);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
-    /* Menu Hamburger (identique à index.html) */
     .menu-toggle {
-      position: absolute;
-      top: 25px;
-      left: 50%;
-      transform: translateX(-50%);
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      z-index: 1001;
       cursor: pointer;
-      z-index: 101;
-      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      padding: 15px;
+      border-radius: 15px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .menu-toggle:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
     }
 
     .menu-toggle div {
-      width: 30px;
+      width: 25px;
       height: 3px;
-      background-color: var(--text-color) !important;
-      margin: 6px 0;
-      border-radius: 2px;
-      transition: 0.4s ease;
+      background: linear-gradient(45deg, #ff6b6b, #feca57);
+      border-radius: 5px;
+      transition: 0.3s ease;
     }
 
     .menu-toggle.active div:nth-child(1) {
-      transform: rotate(-45deg) translate(-7px, 7px);
+      transform: rotate(45deg) translate(5px, 5px);
     }
+
     .menu-toggle.active div:nth-child(2) {
       opacity: 0;
     }
+
     .menu-toggle.active div:nth-child(3) {
-      transform: rotate(45deg) translate(-7px, -7px);
+      transform: rotate(-45deg) translate(5px, -5px);
     }
 
-    /* Menu dropdown (identique à index.html) */
     .menu {
-      display: none;
-      position: absolute;
-      top: 70px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--surface-color);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      padding: 10px 0;
-      z-index: 100;
+      position: fixed;
+      top: 90px;
+      right: 30px;
+      background: linear-gradient(135deg, rgba(255, 107, 107, 0.95), rgba(254, 202, 87, 0.95));
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+      padding: 20px 0;
+      z-index: 1000;
       width: 200px;
+      display: none;
+      animation: slideDown 0.3s ease;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     .menu a {
       display: block;
       padding: 12px 30px;
-      color: var(--text-color);
+      color: white;
       text-decoration: none;
-      font-weight: bold;
-      transition: background-color 0.3s, color 0.3s;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border-radius: 10px;
+      margin: 0 10px;
     }
 
     .menu a:hover {
-      background-color: var(--accent-color);
-      color: white;
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
 
     header {
       text-align: center;
-      padding: 100px 20px 40px 20px; /* Ajustement padding */
+      padding: 120px 20px 60px;
+      position: relative;
     }
 
-    header h1 { /* Renommé de h1 simple pour spécificité */
-      color: var(--text-color);
-      font-size: 2.5em; /* Harmonisé */
-      font-weight: 700; /* Harmonisé */
+    header h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      background: linear-gradient(45deg, #ff6b6b, #feca57, #ff9ff3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { filter: drop-shadow(0 0 5px rgba(255, 107, 107, 0.5)); }
+      to { filter: drop-shadow(0 0 20px rgba(254, 202, 87, 0.5)); }
     }
 
     .staff-section {
-      max-width: 900px; /* Un peu plus large pour potentiellement plus de membres par ligne */
-      margin: 0 auto 40px auto;
+      max-width: 1200px;
+      margin: 0 auto 60px;
       padding: 0 20px;
     }
 
     .staff-section h2 {
-      text-align: left;
-      color: var(--text-color-secondary); /* Couleur secondaire pour les titres de section */
-      font-weight: bold;
-      font-size: 1.8em; /* Taille ajustée */
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(45deg, #ff6b6b, #feca57);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 40px;
+      text-align: center;
+      position: relative;
       display: flex;
       align-items: center;
-      gap: 12px; /* Espace augmenté */
-      margin-bottom: 25px; /* Marge sous le titre */
-      border-bottom: 1px solid var(--border-color); /* Ligne de séparation subtile */
-      padding-bottom: 10px;
+      justify-content: center;
+      gap: 20px;
     }
 
-    /* Barre de couleur à côté des titres de rôle */
-    .staff-section h2::before {
-      content: "";
-      display: inline-block;
-      width: 8px; /* Un peu plus épais */
-      height: 28px; /* Un peu plus haut */
-      background-color: var(--accent-color); /* Utilisation de la couleur d'accent du thème */
-      border-radius: 4px;
+    .staff-section h2::before,
+    .staff-section h2::after {
+      content: '';
+      flex: 1;
+      height: 3px;
+      background: linear-gradient(45deg, #ff6b6b, #feca57);
+      border-radius: 3px;
+      max-width: 100px;
     }
-    /* Si vous voulez des couleurs différentes par rôle, vous pouvez les redéfinir ici:
-    .staff-section h2.developer::before { background-color: var(--autre-accent-couleur); }
-    */
+
+    .staff-section h2.owner::before,
+    .staff-section h2.owner::after {
+      background: linear-gradient(45deg, #ff6b6b, #feca57);
+    }
+
+    .staff-section h2.media-owner::before,
+    .staff-section h2.media-owner::after {
+      background: linear-gradient(45deg, #ff9ff3, #a78bfa);
+    }
+
+    .staff-section h2.manager::before,
+    .staff-section h2.manager::after {
+      background: linear-gradient(45deg, #4ade80, #22d3ee);
+    }
+
+    .staff-section h2.developer::before,
+    .staff-section h2.developer::after {
+      background: linear-gradient(45deg, #f59e0b, #ef4444);
+    }
 
     .staff-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center; /* Centrer les cartes si elles ne remplissent pas la ligne */
-      gap: 25px; /* Espace entre les cartes */
-      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      justify-items: center;
+      margin-top: 40px;
     }
 
     .staff-member {
-      background: var(--surface-color);
-      backdrop-filter: blur(8px);
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 20px; /* Padding intérieur */
-      width: 220px; /* Largeur fixe */
-      /* height: auto;  La hauteur sera automatique en fonction du contenu */
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(20px);
+      border-radius: 25px;
+      padding: 30px;
+      width: 100%;
+      max-width: 300px;
       text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start; /* Aligner en haut pour que le texte soit sous l'image */
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.6s ease;
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out, background-color 0.3s; /* Animation plus douce et transition pour hover */
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transform: translateY(50px) scale(0.9);
+      position: relative;
+      overflow: hidden;
     }
-    .staff-member:hover {
-        background: var(--surface-hover-color);
-        transform: translateY(-5px); /* Petit effet de soulèvement au survol */
+
+    .staff-member::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: all 0.6s ease;
+      transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+
+    .staff-member:hover::before {
+      transform: translateX(100%) translateY(100%) rotate(45deg);
     }
 
     .staff-member.visible {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
+    }
+
+    .staff-member:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
     }
 
     .staff-member img {
-      width: 120px; /* Gardé */
-      height: 180px; /* Ajusté pour un ratio plus courant, vous pouvez remettre 240px si vos images sont très hautes */
+      width: 120px;
+      height: 120px;
       object-fit: cover;
-      object-position: center top; /* S'assurer que le haut de l'image est visible */
-      border-radius: 8px;
-      margin-bottom: 15px; /* Espace sous l'image */
+      border-radius: 50%;
+      margin-bottom: 20px;
+      border: 4px solid transparent;
+      background: linear-gradient(white, white) padding-box, linear-gradient(45deg, #ff6b6b, #feca57) border-box;
+      transition: all 0.3s ease;
+    }
+
+    .staff-member:hover img {
+      transform: scale(1.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     }
 
     .staff-member p {
-      margin: 5px 0;
-      font-weight: bold;
-      color: var(--text-color); /* Assurer la couleur du texte */
-      font-size: 1.1em;
-    }
-     .staff-member span.role-tag { /* Optionnel: petit tag pour le rôle si besoin */
-        font-size: 0.8em;
-        color: var(--accent-color);
-        background-color: rgba(255, 165, 0, 0.1);
-        padding: 3px 8px;
-        border-radius: 12px;
-        margin-top: 8px;
-        display: inline-block;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #2d3748;
+      margin: 15px 0;
+      background: linear-gradient(45deg, #ff6b6b, #feca57);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
+    .role-tag {
+      font-size: 0.9rem;
+      color: white;
+      background: linear-gradient(45deg, #ff6b6b, #feca57);
+      padding: 8px 16px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-top: 10px;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .owner .role-tag {
+      background: linear-gradient(45deg, #ff6b6b, #feca57);
+    }
+
+    .media-owner .role-tag {
+      background: linear-gradient(45deg, #ff9ff3, #a78bfa);
+    }
+
+    .manager .role-tag {
+      background: linear-gradient(45deg, #4ade80, #22d3ee);
+    }
+
+    .developer .role-tag {
+      background: linear-gradient(45deg, #f59e0b, #ef4444);
+    }
 
     .back-link {
-      display: inline-block; /* Pour centrer avec text-align sur le parent si besoin */
+      display: inline-block;
       text-align: center;
-      margin: 40px auto; /* Centrer le lien horizontalement et ajouter marge */
-      padding: 10px 25px;
-      color: var(--text-color);
-      background-color: var(--accent-color);
+      margin: 60px auto 40px;
+      padding: 15px 40px;
+      color: white;
+      background: linear-gradient(45deg, #ff6b6b, #feca57);
       text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
-      transition: background-color 0.3s, transform 0.2s;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .back-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .back-link:hover::before {
+      left: 100%;
     }
 
     .back-link:hover {
-      background-color: var(--accent-hover-color);
-      text-decoration: none; /* Éviter le soulignement par défaut sur hover si déjà stylé */
-      transform: translateY(-2px);
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .back-link-container {
+      text-align: center;
+      margin: 60px 0;
+    }
+
+    .summer-decoration {
+      position: fixed;
+      font-size: 2rem;
+      opacity: 0.6;
+      animation: float 4s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .summer-decoration:nth-child(1) {
+      top: 15%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .summer-decoration:nth-child(2) {
+      top: 70%;
+      right: 10%;
+      animation-delay: 1s;
+    }
+
+    .summer-decoration:nth-child(3) {
+      bottom: 15%;
+      left: 15%;
+      animation-delay: 2s;
+    }
+
+    .summer-decoration:nth-child(4) {
+      top: 40%;
+      right: 20%;
+      animation-delay: 3s;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.5rem;
+      }
+      
+      .staff-section h2 {
+        font-size: 2rem;
+      }
+      
+      .staff-list {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .staff-member {
+        max-width: 280px;
+        padding: 25px;
+      }
+      
+      .branding {
+        top: 10px;
+        left: 10px;
+        padding: 8px 15px;
+      }
+      
+      .menu-toggle {
+        top: 20px;
+        right: 20px;
+        padding: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      
+      .staff-section h2 {
+        font-size: 1.5rem;
+      }
+      
+      .staff-section h2::before,
+      .staff-section h2::after {
+        max-width: 50px;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="summer-decoration">🌞</div>
+  <div class="summer-decoration">🌺</div>
+  <div class="summer-decoration">🏖️</div>
+  <div class="summer-decoration">🌴</div>
 
   <div class="branding">
     <img src="logo.png" alt="Pulse Logo">
     <span>Pulse Network</span>
   </div>
 
-  <div class="menu-toggle" onclick="toggleMenuHandler(this)"> {/* Renommé pour éviter conflit si l'autre script est chargé */}
+  <div class="menu-toggle" onclick="toggleMenuHandler(this)">
     <div></div>
     <div></div>
     <div></div>
   </div>
 
-  <div class="menu" id="mainMenu"> {/* ID changé pour éviter conflit */}
+  <div class="menu" id="mainMenu">
     <a href="index.html">Home</a>
     <a href="staff.html">Staff</a>
   </div>
 
   <header>
-    <h1>Meet Our Staff</h1>
+    <h1>Meet Our Summer Team</h1>
   </header>
 
   <div class="staff-section">
-    <h2 class="owner">Owner</h2>
+    <h2 class="owner">👑 Owner</h2>
     <div class="staff-list">
-      <div class="staff-member">
+      <div class="staff-member owner">
         <img src="refroidissement.png" alt="Refroidissement">
         <p>Refroidissement</p>
+        <span class="role-tag">Founder & CEO</span>
       </div>
-      <div class="staff-member">
+      <div class="staff-member owner">
         <img src="newhall.png" alt="Newhall">
         <p>Newhall</p>
+        <span class="role-tag">Co-Founder</span>
       </div>
     </div>
   </div>
 
   <div class="staff-section">
-    <h2 class="media-owner">MEDIA-OWNER</h2>
+    <h2 class="media-owner">📱 Media Owner</h2>
     <div class="staff-list">
-      <div class="staff-member">
+      <div class="staff-member media-owner">
         <img src="qbedwars.png" alt="qBedwars">
         <p>qBedwars</p>
+        <span class="role-tag">Social Media Director</span>
       </div>
     </div>
   </div>
 
   <div class="staff-section">
-    <h2 class="manager">Manager</h2>
+    <h2 class="manager">🏆 Manager</h2>
     <div class="staff-list">
-      <div class="staff-member">
+      <div class="staff-member manager">
         <img src="dewier.png" alt="Dewier">
         <p>Dewier</p>
+        <span class="role-tag">Operations Manager</span>
       </div>
     </div>
   </div>
 
   <div class="staff-section">
-    <h2 class="developer">Developer</h2>
+    <h2 class="developer">💻 Developer</h2>
     <div class="staff-list">
-      <div class="staff-member">
+      <div class="staff-member developer">
         <img src="swcm.png" alt="swcm">
         <p>swcm</p>
+        <span class="role-tag">Lead Developer</span>
       </div>
     </div>
   </div>
   
-  <div style="text-align: center;"> {/* Conteneur pour centrer le lien */}
-    <a href="index.html" class="back-link">Back to Home</a>
+  <div class="back-link-container">
+    <a href="index.html" class="back-link">🏠 Back to Home</a>
   </div>
 
   <script>
-    // Script pour l'animation d'apparition des membres du staff (conservé et fonctionnel)
     const observerOptions = {
       root: null,
       rootMargin: "0px",
-      threshold: 0.15 // Un peu plus tôt pour un effet plus fluide
+      threshold: 0.15
     };
 
     const staffMembers = document.querySelectorAll('.staff-member');
+    let delay = 0;
 
-    const observer = new IntersectionObserver((entries, observerInstance) => { // Renommé observer pour éviter conflit potentiel
+    const observer = new IntersectionObserver((entries, observerInstance) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, delay);
+          delay += 200;
           observerInstance.unobserve(entry.target);
         }
       });
@@ -333,23 +567,35 @@
       observer.observe(member);
     });
 
-    // Script pour le menu (identique à index.html, avec noms de fonction/ID légèrement modifiés pour clarté)
-    const menuToggleBtn = document.querySelector('.menu-toggle'); // Sélection via classe
-    function toggleMenuHandler(element) { // Renommée pour éviter conflit si les scripts étaient combinés
-      const menuDropdown = document.getElementById('mainMenu'); // ID changé
-      menuDropdown.style.display = menuDropdown.style.display === 'block' ? 'none' : 'block';
+    function toggleMenuHandler(element) {
+      const menuDropdown = document.getElementById('mainMenu');
+      const isOpen = menuDropdown.style.display === 'block';
+      menuDropdown.style.display = isOpen ? 'none' : 'block';
       element.classList.toggle('active');
     }
 
     document.addEventListener('click', function(event) {
-      const menuDropdown = document.getElementById('mainMenu'); // ID changé
-      // S'assurer que menuToggleBtn est bien le bouton du menu avant d'utiliser ses propriétés
-      if (menuToggleBtn && !menuDropdown.contains(event.target) && !menuToggleBtn.contains(event.target) && !menuToggleBtn.contains(event.target.parentElement) ) {
+      const menuDropdown = document.getElementById('mainMenu');
+      const menuToggleBtn = document.querySelector('.menu-toggle');
+      
+      if (!menuDropdown.contains(event.target) && !menuToggleBtn.contains(event.target)) {
         menuDropdown.style.display = 'none';
-        if (menuToggleBtn.classList) { // Vérifier que classList existe
-             menuToggleBtn.classList.remove('active');
-        }
+        menuToggleBtn.classList.remove('active');
       }
+    });
+
+    // Smooth scrolling for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
     });
   </script>
 
