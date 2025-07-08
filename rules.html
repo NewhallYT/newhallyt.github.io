@@ -5,48 +5,104 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Electron Network - Rules</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f7f7f7;
+    * {
       margin: 0;
       padding: 0;
-      color: #333;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 25%, #fecfef 50%, #ff9a9e 75%, #fad0c4 100%);
+      min-height: 100vh;
+      color: #2d3748;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 20%, rgba(255, 206, 84, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 154, 158, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 60%, rgba(255, 183, 197, 0.2) 0%, transparent 50%);
+      animation: float 6s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
     }
 
     .branding {
-      position: absolute;
-      top: 10px;
-      left: 10px;
+      position: fixed;
+      top: 20px;
+      left: 20px;
       display: flex;
       align-items: center;
-      z-index: 100;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      padding: 10px 20px;
+      border-radius: 50px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .branding:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
     }
 
     .branding img {
-      width: 50px;
-      margin-right: 10px;
+      width: 40px;
+      height: 40px;
+      margin-right: 12px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #ff6b6b, #feca57);
     }
 
     .branding span {
-      font-size: 20px;
-      font-weight: bold;
+      font-size: 18px;
+      font-weight: 700;
+      background: linear-gradient(45deg, #ff6b6b, #feca57);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .menu-container {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      z-index: 101;
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      z-index: 1001;
       cursor: pointer;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      padding: 15px;
+      border-radius: 15px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .menu-container:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
     }
 
     .menu-bar {
-      width: 30px;
-      height: 4px;
-      background-color: #333;
+      width: 25px;
+      height: 3px;
+      background: linear-gradient(45deg, #ff6b6b, #feca57);
       border-radius: 5px;
       transition: 0.3s ease;
     }
@@ -67,77 +123,254 @@
       position: fixed;
       top: 0;
       right: 0;
-      background-color: #333;
-      width: 250px;
+      background: linear-gradient(135deg, rgba(255, 107, 107, 0.95), rgba(254, 202, 87, 0.95));
+      backdrop-filter: blur(20px);
+      width: 280px;
       height: 100%;
       display: none;
       flex-direction: column;
       align-items: center;
-      padding-top: 50px;
-      z-index: 100;
+      padding-top: 80px;
+      z-index: 1000;
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
     }
 
     .nav-menu.open {
       display: flex;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(100%); }
+      to { transform: translateX(0); }
     }
 
     .nav-link {
       color: white;
       text-decoration: none;
-      font-size: 18px;
-      margin: 20px 0;
+      font-size: 20px;
+      font-weight: 600;
+      margin: 15px 0;
+      padding: 12px 30px;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
     }
 
     .nav-link:hover {
-      text-decoration: underline;
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
     }
 
     header {
-      padding: 80px 20px 20px;
+      padding: 120px 20px 60px;
       text-align: center;
+      position: relative;
     }
 
     header h1 {
-      font-size: 28px;
-      color: #222;
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(45deg, #ff6b6b, #feca57, #ff9ff3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { filter: drop-shadow(0 0 5px rgba(255, 107, 107, 0.5)); }
+      to { filter: drop-shadow(0 0 20px rgba(254, 202, 87, 0.5)); }
     }
 
     .rules-section {
-      max-width: 900px;
+      max-width: 1000px;
       margin: 0 auto;
-      padding: 20px;
-      line-height: 1.6;
+      padding: 40px;
+      position: relative;
+    }
+
+    .rules-card {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(20px);
+      border-radius: 25px;
+      padding: 40px;
+      margin-bottom: 30px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .rules-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
     }
 
     .rules-section h2 {
-      font-size: 22px;
-      color: #b30000;
-      margin-top: 40px;
+      font-size: 2rem;
+      background: linear-gradient(45deg, #ff6b6b, #feca57);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 25px;
+      font-weight: 700;
+      position: relative;
     }
 
-    .rules-section p,
-    .rules-section li {
-      margin: 10px 0;
+    .rules-section h2::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: linear-gradient(45deg, #ff6b6b, #feca57);
+      border-radius: 3px;
     }
 
     .rules-section ul {
-      padding-left: 20px;
+      list-style: none;
+      padding: 0;
+    }
+
+    .rules-section li {
+      margin: 15px 0;
+      padding: 15px 20px;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 15px;
+      border-left: 4px solid transparent;
+      background-image: linear-gradient(white, white), linear-gradient(45deg, #ff6b6b, #feca57);
+      background-origin: border-box;
+      background-clip: padding-box, border-box;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .rules-section li:hover {
+      transform: translateX(5px);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .rules-section li::before {
+      content: '☀️';
+      position: absolute;
+      left: -5px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2em;
+      background: linear-gradient(45deg, #ff6b6b, #feca57);
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .rules-section p {
+      margin: 20px 0;
+      line-height: 1.8;
+      font-size: 1.1rem;
     }
 
     .notice {
-      font-style: italic;
-      color: #555;
-      margin-top: 30px;
+      background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(254, 202, 87, 0.1));
+      border: 2px solid rgba(255, 107, 107, 0.3);
+      border-radius: 20px;
+      padding: 25px;
+      margin: 30px 0;
+      font-weight: 600;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .notice::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+      100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
     }
 
     .footer-note {
-      margin-top: 30px;
-      font-size: 14px;
-      color: #999;
+      margin-top: 20px;
+      font-size: 0.95rem;
+      color: #666;
+      text-align: center;
+      font-style: italic;
+    }
+
+    .summer-decoration {
+      position: fixed;
+      font-size: 2rem;
+      opacity: 0.6;
+      animation: float 4s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .summer-decoration:nth-child(1) {
+      top: 20%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .summer-decoration:nth-child(2) {
+      top: 60%;
+      right: 15%;
+      animation-delay: 1s;
+    }
+
+    .summer-decoration:nth-child(3) {
+      bottom: 20%;
+      left: 20%;
+      animation-delay: 2s;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      
+      .rules-section {
+        padding: 20px;
+      }
+      
+      .rules-card {
+        padding: 25px;
+      }
+      
+      .branding {
+        top: 10px;
+        left: 10px;
+        padding: 8px 15px;
+      }
+      
+      .menu-container {
+        top: 20px;
+        right: 20px;
+        padding: 12px;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="summer-decoration">🌞</div>
+  <div class="summer-decoration">🌺</div>
+  <div class="summer-decoration">🏖️</div>
 
   <div class="branding">
     <img src="logo.png" alt="Logo">
@@ -157,44 +390,55 @@
   </div>
 
   <header>
-    <h1>Electron Network │ Network & Discord Rules</h1>
+    <h1>Electron Network │ Summer Rules</h1>
   </header>
 
   <div class="rules-section">
-    <ul>
-      <li><em>Spamming could lead to a mute</em></li>
-      <li><em>No raiding / nuking</em></li>
-      <li><em>No 18+ / NSFW Content</em></li>
-      <li><em>Earrape is strictly prohibited in voice channels — You will be timed out for 14 days</em></li>
-      <li><em>No sexual harassment — You will be permanently BANNED if found breaking this rule!</em></li>
-      <li><em>No racist slurs</em></li>
-      <li><em>Swearing is allowed to an extent</em></li>
-      <li><em>No ticket spamming / trolling — You’ll be banned 14 days for ticket abuse</em></li>
-      <li><em>No advertisement unless you have access to &lt;@&amp;1258812233236877525&gt;</em></li>
-      <li><em>Anyone DM advertising will be banned from the server</em></li>
-      <li><em>You will not receive support in Direct Messages — make a ticket</em></li>
-      <li><em>Please refrain from pinging staff unless it’s important</em></li>
-      <li><em>Respect staff</em></li>
-      <li><em>Trashtalking/Rage baiting in-game or on Discord will get you muted</em></li>
-      <li><em>Using alts is allowed as long as you don’t abuse them (ban/mute evasion, etc.)</em></li>
-    </ul>
+    <div class="rules-card">
+      <h2>🌟 Discord & Network Rules</h2>
+      <ul>
+        <li><em>Spamming could lead to a mute</em></li>
+        <li><em>No raiding / nuking</em></li>
+        <li><em>No 18+ / NSFW Content</em></li>
+        <li><em>Earrape is strictly prohibited in voice channels — You will be timed out for 14 days</em></li>
+        <li><em>No sexual harassment — You will be permanently BANNED if found breaking this rule!</em></li>
+        <li><em>No racist slurs</em></li>
+        <li><em>Swearing is allowed to an extent</em></li>
+        <li><em>No ticket spamming / trolling — You'll be banned 14 days for ticket abuse</em></li>
+        <li><em>No advertisement unless you have access to &lt;@&amp;1258812233236877525&gt;</em></li>
+        <li><em>Anyone DM advertising will be banned from the server</em></li>
+        <li><em>You will not receive support in Direct Messages — make a ticket</em></li>
+        <li><em>Please refrain from pinging staff unless it's important</em></li>
+        <li><em>Respect staff</em></li>
+        <li><em>Trashtalking/Rage baiting in-game or on Discord will get you muted</em></li>
+        <li><em>Using alts is allowed as long as you don't abuse them (ban/mute evasion, etc.)</em></li>
+      </ul>
+    </div>
 
-    <h2>Electron Ingame Rules</h2>
-    <ul>
-      <li><em>Please follow the Discord rules as well as the ingame rules</em></li>
-      <li><em>No cheating — you’ll be banned permanently!</em></li>
-      <li><em>No impersonation</em></li>
-      <li><em>No selling ingame items for real money</em></li>
-      <li><em>No chat / command spamming</em></li>
-      <li><em>Any use of prohibited / blacklisted ingame modules (e.g., Xray, World Downloader) will result in a punishment</em></li>
-    </ul>
+    <div class="rules-card">
+      <h2>🎮 Electron Ingame Rules</h2>
+      <ul>
+        <li><em>Please follow the Discord rules as well as the ingame rules</em></li>
+        <li><em>No cheating — you'll be banned permanently!</em></li>
+        <li><em>No impersonation</em></li>
+        <li><em>No selling ingame items for real money</em></li>
+        <li><em>No chat / command spamming</em></li>
+        <li><em>Any use of prohibited / blacklisted ingame modules (e.g., Xray, World Downloader) will result in a punishment</em></li>
+      </ul>
+    </div>
 
-    <p class="notice"><strong>Any excuse of not reading the rules when punished is not a valid excuse for being pardoned.</strong></p>
+    <div class="notice">
+      <strong>⚠️ Any excuse of not reading the rules when punished is not a valid excuse for being pardoned.</strong>
+    </div>
 
-    <p class="footer-note">Note: We have the authority to change, add, or remove any rules at any time. If you are banned for a rule you didn’t know about, we will not be held responsible.</p>
-    <p class="footer-note">If you break any of the rules listed above, you will be instantly banned and must appeal on our website.</p>
+    <div class="rules-card">
+      <p class="footer-note">Note: We have the authority to change, add, or remove any rules at any time. If you are banned for a rule you didn't know about, we will not be held responsible.</p>
+      <p class="footer-note">If you break any of the rules listed above, you will be instantly banned and must appeal on our website.</p>
+    </div>
 
-    <p class="notice"><strong>Please make sure to read our rules before playing on our server! We want Electron Network to be a fun server to play on.</strong></p>
+    <div class="notice">
+      <strong>🌞 Please make sure to read our rules before playing on our server! We want Electron Network to be a fun server to play on this summer!</strong>
+    </div>
   </div>
 
   <script>
@@ -202,7 +446,28 @@
       document.getElementById("navMenu").classList.toggle("open");
       document.querySelector(".menu-container").classList.toggle("open");
     }
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(event) {
+      const menu = document.getElementById('navMenu');
+      const menuContainer = document.querySelector('.menu-container');
+      
+      if (!menu.contains(event.target) && !menuContainer.contains(event.target)) {
+        menu.classList.remove('open');
+        menuContainer.classList.remove('open');
+      }
+    });
+
+    // Add smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
   </script>
 
 </body>
-  </html>
+</html>
